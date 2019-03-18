@@ -29,3 +29,9 @@ Route::get('/search',array('uses' => 'TestController@elasticSearch'))->name('sea
     });
 //});
 //Auth::routes();
+
+
+Route::group(['prefix' => 'zipcodesnew'], function () {
+        Route::get('', array('uses' => 'Zipcodenew\ZipcodenewController@getList'))->name('zipcodenew-list');
+        Route::post('', array('uses' => 'Zipcodenew\Ajax\ZipcodenewAjaxController@getList'))->name('zipcodenew-ajax-list');
+});
