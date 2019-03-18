@@ -23,9 +23,9 @@ class ZipcodeController extends Controller
     {
     }
     
-    public function getList()
+    public function getList(Request $request)
     {
-        $zipcodes = $this->zipcodeRepo->getList(null);
+        $zipcodes = $this->zipcodeRepo->getList( $request->all() );
         return view('zipcode.list',compact('zipcodes'));
     }
     

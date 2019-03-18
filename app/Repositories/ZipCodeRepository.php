@@ -32,9 +32,9 @@ class ZipCodeRepository {
             ->select('zipcodes.zipcode', 'zipcodes.city');
     }
     
-    public function getList($id, $data=[]) {
+    public function getList($data=[]) {
         $list = $this->listBuilder();
-        return $this->common->pagingSort($list, $data);
+        return $this->common->pagingSort($list, $data, false, ['zipcode']);
     }
 
     public function getListJson($id, $data) {

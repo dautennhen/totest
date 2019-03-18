@@ -1,13 +1,25 @@
 @extends('index')
 
 @section('content')
-<div><a href="{{ route('zipcode-new') }}">new item</a></div>
+<div class="table-display-list">
+<div>
+    <form action="{{route('zipcode-list')}}" method="post" class="myformsearch">
+        <a href="{{ route('zipcode-new') }}">new item</a> | 
+        <span> <input type="text" name="searchvalue" value="{{ request('searchvalue', '') }}" /> </span>
+        <input type="hidden" name="orderfield" value="{{ request('orderfield', '') }}" />
+        <input type="hidden" name="orderdir" value="{{ request('orderdir', '') }}" />
+        <input type="hidden" name="page" value="{{ request('page', 0) }}">
+        @csrf
+        <button class="searchvalue">search</button>
+     </form>
+</div>
+
 <div class="box-body table-responsive no-padding company-offered-service">
     <table class="table table-hover" data-delurl="" >
         <tr>
             <th><a></a></th>
-            <th><a>zipcode</a></th>
-            <th><a>city</a></th>
+            <th><span data-field="zipcode" class="reorderlist {{ getdirection('zipcode') }}">zipcode</span></th>
+            <th><span data-field="city" class="reorderlist {{ getdirection('city') }}">city</span></th>
             <th></th>
         </tr>
         @foreach ($zipcodes as $zipcode)
@@ -25,48 +37,46 @@
     </table>
     <div>{{ $zipcodes->links() }}</div>
 </div>
+</div>
 
 <script>
-    $('.remove-item').bind('click', function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $('.table-display-list .pagination .page-link').bind('click', function(event){
+        event.preventDefault() 
+        var page=$(this).attr('href')
+        page = page.split('=')
+        page = page[1];
+        var $form = $('.myformsearch');
+        $form.find('input[name="page"]').val(page)
+        $form.submit()
+    })
+    
+    $('.table-display-list .myformsearch button').bind('click', function(event){
+        event.preventDefault()
+        var $form = $('.myformsearch')
+        $form.find('input[name="page"]').val(0)
+        $form.submit()
+    })
+    
+    $('.table-display-list .reorderlist').bind('click', function(){
+        var val = $(this).is('.asc') ? 'desc' : 'asc'
+        var $form = $('.myformsearch')
+        $form.find('input[name="orderdir"]').val(val)
+        $form.find('input[name="orderfield"]').val($(this).data('field'))
+        $form.submit()
+    })
+    
+    $('.table-display-list .remove-item').bind('click', function(){
+        if(!confirm('Do you really want to delete')) 
+            return
         var url = $(this).data('url');
         $.ajax({
             url: url,
-            data: {_token: CSRF_TOKEN},                    
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},                    
             type: 'POST',
             success:function(data) {
                 location.reload()
             }
-        });
+        })
     })
-/*
- * $('.alias').on('change', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        var alias = this.value;
-        $.ajax({
-            url:"/api/get-page",
-            data: {_token: CSRF_TOKEN,
-                    alias: alias},                    
-            type: 'POST',
-            success:function(page) {
-                $('input[name="title"]').val(page.title);
-                $('input[name="content"]').val(page.content);
-                $('input[name="keywords"]').val(page.keywords);
-                $('input[name="description"]').val(page.description);
-            }
-        });      
-        
-    })
-*/
 </script>
 @endsection

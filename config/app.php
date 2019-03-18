@@ -160,7 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
+  //      Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -210,7 +210,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+//        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 

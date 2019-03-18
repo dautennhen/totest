@@ -17,14 +17,15 @@ Route::get('/user',array('uses' => 'TestController@userResource'))->name('resour
 Route::get('/users',array('uses' => 'TestController@usersResource'))->name('resources');
 Route::get('/search',array('uses' => 'TestController@elasticSearch'))->name('search');
 */
-Route::group(['middleware' => ['permission']], function () {
+//Route::group(['middleware' => ['permission']], function () {
     Route::group(['prefix' => 'zipcodes'], function () {
         Route::get('', array('uses' => 'Zipcode\ZipcodeController@getList'))->name('zipcode-list');
+        Route::post('', array('uses' => 'Zipcode\ZipcodeController@getList'))->name('zipcode-list');
         Route::get('detail/{id}', array('uses' => 'Zipcode\ZipcodeController@getItem'))->name('zipcode-detail');
         Route::get('new', array('uses' => 'Zipcode\ZipcodeController@newItem'))->name('zipcode-new');
         Route::get('edit/{id}', array('uses' => 'Zipcode\ZipcodeController@editItem'))->name('zipcode-edit');
         Route::post('remove/{id}', array('uses' => 'Zipcode\Ajax\ZipcodeAjaxController@remove'))->name('zipcode-remove');
         Route::post('save/{id}', array('uses' => 'Zipcode\Ajax\ZipcodeAjaxController@save'))->name('zipcode-save');
     });
-});
-Auth::routes();
+//});
+//Auth::routes();
