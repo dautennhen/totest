@@ -3,9 +3,7 @@
 namespace App\Repositories;
 
 use DB;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Zipcode;
-use Faker\Generator as Faker;
 
 class ZipCodeRepository {
     private $common;
@@ -34,7 +32,7 @@ class ZipCodeRepository {
     
     public function getList($data=[]) {
         $list = $this->listBuilder();
-        return $this->common->pagingSort($list, $data, false, ['zipcode']);
+        return $this->common->pagingSort($list, $data, false, ['zipcode', 'city']);
     }
 
     public function getListJson($id, $data) {
@@ -52,6 +50,7 @@ class ZipCodeRepository {
     }
     
     public function save($id, $data) {
+        //return $id;
         return ($id == 0) ? $this->saveNew($id, $data) : $this->saveEdit($id, $data);
     }
     

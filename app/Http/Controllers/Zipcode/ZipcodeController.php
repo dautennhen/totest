@@ -15,7 +15,6 @@ class ZipcodeController extends Controller
     protected $zipcodeRepo;
     
     public function __construct() {
-        
         $this->zipcodeRepo = new ZipCodeRepository;
     }
     

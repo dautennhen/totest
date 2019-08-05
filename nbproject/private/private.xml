@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Code/totest/resources/views/zipcode/list.blade.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/Repositories/ZipCodeRepository.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/helpers/myhelper.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/Common/Pagination.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Zipcode/ZipcodeController.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/purchase/socials/list.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/users/list.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/user.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Acl/UserController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -2,44 +2,41 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Validator;
 
-class User extends Model implements Authenticatable, CanResetPasswordContract 
-{
-    use Notifiable,
-        AuthenticableTrait,
-        CanResetPassword;
+class User extends Model {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'fullname', 'email', 'password', 'confirmation_code'
+    use SoftDeletes;
+    protected $table = 'users';
+    protected $dates = ['deleted_at'];
+    public $rules = [
+        'email' => 'required|email',
+        'name' => 'required',
+        'group_id' => 'required',
+        'username' => 'required'
     ];
+    public $messages;
+    public $attributes;
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-    
-    public function tokens() {
-        return $this->hasMany('App\Models\Tokens');
+    public function __construct($data = []) {
+        $this->attributes = $data;
+        $this->messages = [
+            'email.required' => __('message.email.required'),
+            'name.required' => __('message.field.required'),
+            'group_id.required' => __('message.group.required'),
+            'username.required' => __('message.username.required')
+        ];
     }
 
-    public function profile()
-    {
-        return $this->hasOne('App\Models\Profile','user_id');
+    public function isValid($data = []) {
+        return Validator::make($data, $this->rules, $this->messages)->passes();
     }
+
+    public function roles() {
+        return $this->belongsToMany('App\Models\Acl\Groups', 'group_role', 'group_id', 'role_id')->withTimestamps();
+    }
+
 }

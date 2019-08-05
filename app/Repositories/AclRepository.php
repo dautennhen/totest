@@ -12,16 +12,15 @@ use Illuminate\Support\Facades\Session;
 class AclRepository {
 
     public $user;
+    public $role;
     public $group;
     public $permission;
 
     public function __construct(){ //User $user, Group $group, Permission $permission) {
-        $user = new \App\Models\User;
-        $group = new \App\Models\Group;
-        $permission = new \App\Models\Permission;
-        $this->user = $user;
-        $this->group = $group;
-        $this->permission = $permission;
+        $this->user = new \App\Models\User;
+        $this->group = new \App\Models\Acl\Groups;
+        $this->permission = new \App\Models\Acl\Permissions;
+        $this->role = new \App\Models\Acl\Roles;
     }
 
     public function createGroup($name, $description = '') {
@@ -35,7 +34,7 @@ class AclRepository {
         }
     }
 
-    public function attachUserToGroup($group_id, $user_id) {
+    /*public function attachUserToGroup($group_id, $user_id) {
         $group = $this->group->find($group_id);
         $user = $this->user->find($user_id);
         if (!empty($group) && !empty($user)) {
@@ -44,6 +43,16 @@ class AclRepository {
             return 1;
         }
         return 0;
+    }*/
+    
+    public function attachRoleToGroup($group_id, $roles) {  
+        $group = $this->group->find($group_id);
+        return $group->roles()->sync($roles);
+    }
+    
+    public function dettachRoleToGroup($group_id, $role_id) {  
+        $group = $this->group->find($group_id);
+        return $group->dettach([$role_id]);
     }
 
     public function dettachUserFromGroup($group_id, $user_id) {
@@ -94,25 +103,13 @@ class AclRepository {
         }
     }
 
-    public function groupAttachPermissions($group_id, $permission_id) {
-        $group = $this->group->find($group_id);
-        $permission = $this->permission->find($permission_id);
-        if (!empty($group) && !empty($permission)) {
-            if (!$group->permissions->contains($permission_id))
-                return $group->permissions()->attach($permission_id);
-            return 1;
-        }
-        return 0;
+    public function roleAttachPermissions($role_id, $permissions) {
+        $role = $this->role->find($role_id);
+        return $role->permissions()->attach($permissions);
     }
 
-    public function groupDettachPermissions($group_id, $permission_id) {
-        $group = $this->group->find($group_id);
-        if (!empty($group)) {
-            if (!$group->permissions->contains($permission_id))
-                return 1;
-            return $group->permissions()->detach($permission_id);
-        }
-        return 0;
+    public function roleSyncPermissions($role, $permissions) {
+        return $role->permissions()->dettach($permissions);
     }
 
     public function cachePermission($permissions) {

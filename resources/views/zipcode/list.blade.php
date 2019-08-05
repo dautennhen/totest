@@ -39,7 +39,7 @@
 </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $('.table-display-list .pagination .page-link').bind('click', function(event){
         event.preventDefault() 
         var page=$(this).attr('href')
