@@ -13,8 +13,12 @@ use DatePeriod;
 use App\Common\Pagination;
 
 class Common {
+
     use Pagination;
-    public function __construct() {}
+
+    public function __construct() {
+        
+    }
 
     public function getEloquentById($eloquent, $id) {
         $result = $eloquent->find($id);
@@ -29,7 +33,7 @@ class Common {
         return $eloquent;
     }
 
-    public function uploadResizeImage($imageFolder, $inputname="avatar") {
+    public function uploadResizeImage($imageFolder, $inputname = "avatar") {
         //$imageFolder = 'uploads/profile';
         $file = Request::file($inputname);
         $extension = $file->extension();
@@ -53,26 +57,55 @@ class Common {
         }
     }
 
-    public function uploadImage($imageFolder, $inputname, $rename) {
+    /* public function uploadImage($imageFolder, $inputname, $rename) {
+      //$imageFolder = 'uploads/profile';
+      $file = Request::file($inputname);
+      $extension = $file->extension();
+      $image_name = $rename . '.' . $extension;
+      $filename = $imageFolder . '/' . $image_name;
+      $dest = 'public/' . $filename;
+      if (!($file->isValid()) || $extension == 'exe' || !in_array($extension, ['jpg', 'png', 'jpeg'])) {
+      return false;
+      }
+      try {
+      if (Storage::exists($dest))
+      Storage::delete($dest);
+      $result = Storage::putFileAs('public/'.$imageFolder, $file, $image_name);
+      return $filename;
+      } catch (Exception $e) {
+      return false;
+      }
+      } */
+
+    public function uploadImage($imageFolder, $file, $rename) {
         //$imageFolder = 'uploads/profile';
-        $file = Request::file($inputname);
+        //$file = Request::file($inputname);
         $extension = $file->extension();
         $image_name = $rename . '.' . $extension;
         $filename = $imageFolder . '/' . $image_name;
-        if (!($file->isValid()) || $extension == 'exe' || !in_array($extension, ['jpg', 'png', 'jpeg'])) {
+        $dest = 'public/' . $filename;
+        if (!($file->isValid()) || $extension == 'exe' || !in_array($extension, ['jpg', 'png', 'jpeg']))
             return false;
-        }
         try {
-            if (Storage::exists($filename))
-                Storage::delete($filename);
-            $result = Storage::putFileAs($imageFolder, $file, $image_name);
+            if (Storage::exists($dest))
+                Storage::delete($dest);
+            $result = Storage::putFileAs('public/' . $imageFolder, $file, $image_name);
             return $filename;
         } catch (Exception $e) {
             return false;
         }
     }
-    
-    public function responseJson($result = false, $code = 200, $message = '', $param=[]) {
+
+    public function uploadMulti($imageFolder, $inputname, $rename) {
+        $files = Request::file($inputname);
+        foreach ($files as $file) {
+            $rename = $rename . '0';
+            $arr[] = $this->uploadImage($imageFolder, $file, $rename);
+        }
+        return $arr;
+    }
+
+    public function responseJson($result = false, $code = 200, $message = '', $param = []) {
         $data = [
             'success' => $result,
             'message' => $message,
@@ -89,7 +122,7 @@ class Common {
             $message->to($info['email']);
         });
     }
-    
+
     public function getUserByToken() {
         $api = new ApiToken;
         return $api->getUserByToken();
@@ -102,7 +135,7 @@ class Common {
     public function getSupportedStates() {
         return [];
     }
-    
+
     public function getAllServices() {
         return [
             'weekly_learning' => 'Weeklys learning',
@@ -110,18 +143,18 @@ class Common {
             'pool_spa_repair' => 'Pool spa repair',
         ];
     }
-    
+
     public function getServiceByKeys($keys) {
         $all = $this->getAllServices();
         $arr = [];
-        foreach($keys as $key=>$item){
+        foreach ($keys as $key => $item) {
             $arr[] = $all[$item];
         }
-        return implode(' | ',$arr);
+        return implode(' | ', $arr);
     }
-    
-    public function formatDate($date){
-        if(!isset($date)){
+
+    public function formatDate($date) {
+        if (!isset($date)) {
             return null;
         }
 
@@ -131,17 +164,17 @@ class Common {
 
     public static function getDateOfWeekDay($day) {
         $weekDays = array(
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
         );
 
         $dayNumber = array_search($day, $weekDays);
-        $currentDayNumber =  date('w', strtotime('today'));
+        $currentDayNumber = date('w', strtotime('today'));
 
         if ($dayNumber > $currentDayNumber) {
             return date('Y-m-d', strtotime($day));
@@ -151,47 +184,43 @@ class Common {
     }
 
     public static function getKeyDatesFromRange($start, $end, $format = 'Y-m-d') {
-        $days   = array();
+        $days = array();
         $period = new DatePeriod(
-            $start, // Start date of the period
-            new DateInterval('P1D'), // Define the intervals as Periods of 1 Day
-            $end // Apply the interval 6 times on top of the starting date
-        );    
-        
-        foreach ($period as $day)
-        {
-            $key=date('l', strtotime($day->format($format)));
-            if($key!='Sunday' && $key!='Saturday')
-            {
+                $start, // Start date of the period
+                new DateInterval('P1D'), // Define the intervals as Periods of 1 Day
+                $end // Apply the interval 6 times on top of the starting date
+        );
+
+        foreach ($period as $day) {
+            $key = date('l', strtotime($day->format($format)));
+            if ($key != 'Sunday' && $key != 'Saturday') {
                 $days[$key] = $day->format($format);
-            }            
+            }
         }
 
         return $days;
     }
 
     public static function getDatesFromRange($start, $end, $format = 'Y-m-d') {
-        $days   = array();
+        $days = array();
         $period = new DatePeriod(
-            $start, // Start date of the period
-            new DateInterval('P1D'), // Define the intervals as Periods of 1 Day
-            $end // Apply the interval 6 times on top of the starting date
-        );    
-        
-        foreach ($period as $day)
-        {
-            $key=date('l', strtotime($day->format($format)));
-            if($key!='Sunday' && $key!='Saturday')
-            {
+                $start, // Start date of the period
+                new DateInterval('P1D'), // Define the intervals as Periods of 1 Day
+                $end // Apply the interval 6 times on top of the starting date
+        );
+
+        foreach ($period as $day) {
+            $key = date('l', strtotime($day->format($format)));
+            if ($key != 'Sunday' && $key != 'Saturday') {
                 $days[] = $day->format($format);
-            }            
+            }
         }
 
         return $days;
     }
 
-    public static function getCurrentDay($date,$format = 'Y-m-d')
-    {
+    public static function getCurrentDay($date, $format = 'Y-m-d') {
         return date('l', strtotime($date->format($format)));
     }
+
 }

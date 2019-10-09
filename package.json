@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "bootstrap-sass": "^3.4.1",
+        "jquery-colorbox": "^1.6.4",
         "jquery-multiselect": "^1.0.0"
     }
 }

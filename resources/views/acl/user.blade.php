@@ -22,7 +22,7 @@
         <table class="table table-hover" >
             <thead>
                 <tr>
-                    <th><a></a></th>
+                    <th><input type="checkbox" class="check-all-items" /></th>
                     <th width="30%"><span data-field="name" class="reorderlist {{ getdirection('name') }}"> @lang('common.Name') </span></th>
                     <th><span data-field="username" class="reorderlist {{ getdirection('username') }}"> @lang('common.Username') </span></th>
                     <th><span data-field="email" class="reorderlist {{ getdirection('email') }}"> @lang('common.Email') </span></th>

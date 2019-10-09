@@ -1,4 +1,4 @@
-<h4 class="modal-title">@lang('common.Role')</h4>
+<h4 class="modal-title">@lang('common.User')</h4>
 <hr />
 <div class="text-center text-danger form-edit-msg"></div>
 <form name="form-item" method="POST" action="{{ route('users.store') }}">
@@ -15,10 +15,18 @@
         <input type="text" required class="form-control" name="email" value="" />
     </div>
     <div class="form-group">
+        <label for="city">@lang('common.Group') :</label>
         <ul class="list-unstyled">
             @foreach ($groups as $group)
-            <li> <input type="radio" class="form-control" value="{{ $group->id }}" name="group_id" type="radio" /> {{ $group->name }} </li>
+            <li> <input type="radio" value="{{ $group->id }}" name="group_id" type="radio" /> {{ $group->name }} </li>
             @endforeach
+        </ul>
+    </div>
+    <div class="form-group">
+        <label>@lang('common.Status') :</label>
+        <ul class="list-unstyled">
+            <li> <input type="radio" value="active" name="status" type="radio" /> @lang('common.active') </li>
+            <li> <input type="radio" value="inactive" name="status" type="radio" /> @lang('common.inactive') </li>
         </ul>
     </div>
     <div class="text-right">

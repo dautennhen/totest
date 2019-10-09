@@ -37,11 +37,20 @@ class SocialRepository {
     public function destroy($key) {
         return $this->social->find($key)->delete();
     }
+    
+    public function destroyItems($data) {
+        //return $this->social->destroy($data['items']);
+        return $this->social->whereIn('id', $data['items'])->delete();
+        //return $this->user->whereIn('id', $data['items'])->update([
+        //    'deleted_at' => Carbon::now()->format('Y-m-d H:i:s')
+        //]);
+    }
 
     public function store($data) {
-        $arr['name'] = $data['name'];
+        $arr['status'] = $data['status'];
         $arr['username'] = $data['username'];
         $arr['password'] = $data['password'];
+        $arr['cate_id'] = $data['cate_id'];
         DB::beginTransaction();
         try {
             $this->social->insertGetId($arr);
@@ -55,9 +64,15 @@ class SocialRepository {
 
     public function update($id, $data) {
         $item = $this->social->find($id);
+        $item->status = $data['status'];
         $item->username = $data['username'];
         $item->password = $data['password'];
+        $item->cate_id = $data['cate_id'];
         return $item->save();
+    }
+    
+    public function getToken($id) {
+        return true;
     }
 
 }

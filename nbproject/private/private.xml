@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Code/totest/resources/views/purchase/socials/list.blade.php</file>
-            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/users/list.blade.php</file>
-            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/user.blade.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Acl/UserController.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Repositories/AclRepository.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Purchase/ProductController.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Repositories/ProductRepository.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/lang/en/common.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Repositories/GroupRepository.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/purchase/products/new.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/routes/web.php</file>
         </group>
     </open-files>
 </project-private>

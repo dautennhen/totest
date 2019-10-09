@@ -15,9 +15,10 @@ class CreateTableSocials extends Migration
     {
         Schema::create('socials', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
             $table->string('username')->unique();
             $table->string('password')->nullable();
+            $table->string('cate_id')->nullable();
+            $table->string('status')->unique();
             $table->timestamps();
         });
     }

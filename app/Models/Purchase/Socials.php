@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Socials extends Model {
 
     protected $table = 'socials';
-    protected $fillable = ['name', 'username', 'password'];
+    protected $fillable = ['username', 'password', 'cate_id', 'status'];
 
 }

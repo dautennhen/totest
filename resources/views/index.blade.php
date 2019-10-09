@@ -19,6 +19,9 @@
     </footer>
 
 </div>
+    <div class="fullscreen">
+        <div class="loading"></div>
+    </div>
     @stack('scripts')
 </body>
 </html>

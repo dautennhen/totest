@@ -1,3 +1,12 @@
+html, body {
+    width: 100%;
+    height: 100%
+}
+
+body {
+    position: relative;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -33,4 +42,47 @@
   top: 0;
   left: 100%;
   margin-top: -1px;
+}
+
+.ln-tab-content {
+    .ln-tab {
+        display: none;
+    }
+    .active-tab {
+        display: block;
+    }
+}
+
+.fullscreen {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.3;
+    display: flex;
+    align-items: center;
+    flex-pack: center;
+    box-pack: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+  .loading {
+    width: 50px;
+    height: 50px;
+    background-image: url('../images/loading.gif');
+    background-position: center;
+    background-size: 50px 50px;
+    margin: auto ;
+  }
+}
+
+.fullscreen.active {
+    visibility: visible;
+}
+
+.no_display {
+    display: none
 }

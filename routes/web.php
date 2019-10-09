@@ -47,9 +47,31 @@ Route::group(['prefix' => 'admin/purchase'], function () {
     Route::resource('socials', 'Admin\Purchase\SocialController');
     Route::post('socials-list', 'Admin\Purchase\SocialController@items')->name('socials.list');
     Route::delete('socials-list', 'Admin\Purchase\SocialController@destroyItems')->name('socials.delete.items');
+    Route::resource('purchase-categories', 'Admin\Purchase\CategoryController');
+    Route::post('purchase-categories-list', 'Admin\Purchase\CategoryController@items')->name('purchase-categories.list');
+    Route::delete('purchase-categories-list', 'Admin\Purchase\CategoryController@destroyItems')->name('purchase-categories.delete.items');
+    Route::resource('products', 'Admin\Purchase\ProductController');
+    Route::post('products-list', 'Admin\Purchase\ProductController@items')->name('products.list');
+    Route::delete('products-list', 'Admin\Purchase\ProductController@destroyItems')->name('products.delete.items');
+    
+    Route::get('products-facebook-token', 'Admin\Purchase\ProductController@facebookToken')->name('facebook-token');
+    Route::get('products-facebook-callback', 'Admin\Purchase\ProductController@facebookCallback')->name('facebook-callback');
 });
+
+//Upload file
+Route::post('ajax-upload-image/{folder}/{name}', 'Admin\UploadController@storeMulti')->name('ajax-upload-image');
+Route::post('ajax-destroy-image/{folder}/{name}', 'Admin\UploadController@destroy')->name('ajax-destroy-image');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+Route::get('admin/backup', 'Admin\BackupController@index')->name('backup');
+
+Route::get('glide/{path}', function($path){
+    $server = \League\Glide\ServerFactory::create([
+        'source' => app('filesystem')->disk('public')->getDriver(),
+    'cache' => storage_path('glide'),
+    ]);
+    return $server->getImageResponse($path, Input::query());
+})->where('path', '.+');

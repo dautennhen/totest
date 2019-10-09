@@ -151,6 +151,9 @@ return [
          * Package Service Providers...
          */
         Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Elfinder\ElfinderServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -161,6 +164,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
   //      Maatwebsite\Excel\ExcelServiceProvider::class,
+        
     ],
 
     /*
@@ -212,6 +216,7 @@ return [
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
 //        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

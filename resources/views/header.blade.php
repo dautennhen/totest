@@ -35,8 +35,8 @@
                 <li><a> Branch 2 </a></li>
             </ul>
           </li>
-        <li><a> @lang('common.Category') </a></li>
-        <li><a> @lang('common.Product') </a></li>
+        <li class="@if ( $routename == 'purchase-categories.index') active @endif"><a href="{{ route('purchase-categories.index') }}"> @lang('common.Category') </a></li>
+        <li class="@if ( $routename == 'products.index') active @endif"><a href="{{ route('products.index') }}"> @lang('common.Product') </a></li>
         <li class="@if ( $routename == 'socials.index') active @endif"><a href="{{ route('socials.index') }}"> @lang('common.Socials') </a></li>
     </ul>
   </li>
@@ -48,4 +48,5 @@
         <li><a> @lang('common.Post') </a></li>
     </ul>
   </li>
+  <li class="@if( $routename == 'backup') active @endif"><a href="{{ route('backup') }}"> @lang('common.Backup') </a></li>
 </ul>

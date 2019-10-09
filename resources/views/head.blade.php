@@ -7,3 +7,5 @@
 <link rel="stylesheet" href="css/app.css" />
 <script src="js/app.js"></script>
 <script src="js/common.js"></script>
+<script type="text/javascript" src="js/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="/packages/barryvdh/elfinder/js/standalonepopup.min.js"></script>
