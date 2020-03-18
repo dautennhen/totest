@@ -21,6 +21,7 @@ class UploadController extends Controller {
     public function storeMulti($folder, $inputname) {
         $rename = date('YmdHis');
         $result = $this->common->uploadMulti($folder, $inputname, $rename);
+        dd($result);
         if ($result)
             return $this->common->responseJson(true, 200, '', ['path' => $result]);
         return $this->common->responseJson(false);

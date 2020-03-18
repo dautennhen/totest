@@ -10,6 +10,10 @@ use Validator;
 class User extends Model {
 
     use SoftDeletes;
+
+    protected $fillable = [
+        'name', 'email', 'password' //, 'provider', 'provider_id', 'google_id'
+    ];
     protected $table = 'users';
     protected $dates = ['deleted_at'];
     public $rules = [
@@ -32,7 +36,9 @@ class User extends Model {
     }
 
     public function isValid($data = []) {
-        return Validator::make($data, $this->rules, $this->messages)->passes();
+        //return Validator::make($data, $this->rules, $this->messages)->passes();
+        $valid = Validator::make($data, $this->rules, $this->messages);//->validate();
+        return $valid->fails() ? $valid->messages()->all() : true;
     }
 
     public function roles() {

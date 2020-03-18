@@ -64,7 +64,7 @@ trait Pagination {
         }
         return $list;
     }
-    
+       
     public function bindData($tpl, $params) {
         return strtr($tpl, $params);
     }

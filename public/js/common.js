@@ -98,9 +98,28 @@ $(document).ready(function () {
     $(document).on('click', '.btn-save-item', function () {
         var $form = $(this).closest("form")
         return sendData($form.attr('action'), $form.serialize(), $form.attr('method'), function (response) {
-            (response.success == true) ?
-                    $('.form-edit-msg').html('sucess') :
-                    $('.form-edit-msg').html('failed')
+            if( response.success === true) {
+                $('.form-edit-msg').html('sucess') 
+            } else {
+                console.log(response.success)
+                var str = ''
+                $.each( response.success, function( key, value ) {
+                    str = str + '<br />' + value
+                });
+                $('.form-edit-msg').html(str)
+            }
+            /*if(response.message == '') {
+                $('.form-edit-msg').html('sucess')
+            } else {
+                $('.form-edit-msg').html('errors ')
+                console.log(response)
+                var str = ''
+                $.each( response.errors, function( key, value ) {
+                    str = str + '<br />' + key + ": " + value
+                });
+                $('.form-edit-msg').html(str)
+            }         
+             */
             return submitForm($('.myformsearch'))
         })
     })

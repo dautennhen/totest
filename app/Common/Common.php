@@ -9,6 +9,7 @@ use Auth;
 use Mail;
 use DateInterval;
 use DatePeriod;
+use Intervention\Image\ImageManagerStatic as Image;
 //use  Illuminate\Pagination\LengthAwarePaginator as Paginator ;
 use App\Common\Pagination;
 
@@ -90,11 +91,13 @@ class Common {
             if (Storage::exists($dest))
                 Storage::delete($dest);
             $result = Storage::putFileAs('public/' . $imageFolder, $file, $image_name);
+            //resize
+            $this->resizeImage('storage/uploads/'.$image_name, 'storage/uploads/resize_'.$image_name);
             return $filename;
         } catch (Exception $e) {
             return false;
         }
-    }
+    }    
 
     public function uploadMulti($imageFolder, $inputname, $rename) {
         $files = Request::file($inputname);
@@ -105,6 +108,13 @@ class Common {
         return $arr;
     }
 
+    public function resizeImage($src, $rename) {
+        Image::configure(array('driver' => 'imagick'));
+        $img = Image::make($src)->resize(300, 200);
+        //return $img->save('storage/uploads/bar.jpeg');
+        return $img->save($rename);
+    }
+    
     public function responseJson($result = false, $code = 200, $message = '', $param = []) {
         $data = [
             'success' => $result,

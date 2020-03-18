@@ -33,6 +33,8 @@ class UserRepository {
 
     public function getItems($data = []) {
         $list = $this->listBuilder();
+     //   $fields = $data['fields'];
+     //   dd($fields);
         return $this->common->pagingSort($list, $data, false, ['name', 'username', 'email']);
     }
 
@@ -54,8 +56,9 @@ class UserRepository {
     }
 
     public function store($data) {
-        if (!$this->user->isValid($data))
-            return false;
+        $valid = $this->user->isValid($data);
+        if ($valid !== true)
+            return $valid;
         $item = $this->user->where('email', '=', $data['email'])->count();
         if($item)
             return false;

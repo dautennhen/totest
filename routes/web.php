@@ -58,6 +58,21 @@ Route::group(['prefix' => 'admin/purchase'], function () {
     Route::get('products-facebook-callback', 'Admin\Purchase\ProductController@facebookCallback')->name('facebook-callback');
 });
 
+Route::group(['prefix' => 'admin/news'], function () {
+    Route::resource('news-categories', 'Admin\News\CategoryController');
+    Route::post('news-categories-list', 'Admin\News\CategoryController@items')->name('news-categories.list');
+    Route::delete('news-categories-list', 'Admin\News\CategoryController@destroyItems')->name('news-categories.delete.items');
+    Route::resource('posts', 'Admin\News\PostController');
+    Route::post('posts-list', 'Admin\News\PostController@items')->name('posts.list');
+    Route::delete('posts-list', 'Admin\News\PostController@destroyItems')->name('posts.delete.items');
+});
+
+Route::group(['prefix' => 'admin/acl'], function () {
+    Route::resource('tokens', 'Admin\Acl\TokenController');
+    Route::post('tokens-list', 'Admin\Acl\TokenController@items')->name('tokens.list');
+    Route::delete('tokens-list', 'Admin\Acl\TokenController@destroyItems')->name('tokens.delete.items');
+});
+
 //Upload file
 Route::post('ajax-upload-image/{folder}/{name}', 'Admin\UploadController@storeMulti')->name('ajax-upload-image');
 Route::post('ajax-destroy-image/{folder}/{name}', 'Admin\UploadController@destroy')->name('ajax-destroy-image');
@@ -66,7 +81,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/dashboard', 'Admin\DashboardController@index')->name('dashboard');
-Route::get('admin/backup', 'Admin\BackupController@index')->name('backup');
+Route::resource('admin/backups', 'Admin\BackupController');
+
+//facebook
+//Route::get('admin/facebook/login', 'Admin\Social\FacebookController@login');
+//Route::get('admin/facebook/callback', 'Admin\Social\FacebookController@callback');
+
+//Route::get('callback/facebook', 'Admin\Social\FacebookController@callback');
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');
 
 Route::get('glide/{path}', function($path){
     $server = \League\Glide\ServerFactory::create([
@@ -75,3 +98,11 @@ Route::get('glide/{path}', function($path){
     ]);
     return $server->getImageResponse($path, Input::query());
 })->where('path', '.+');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
+

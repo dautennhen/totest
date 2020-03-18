@@ -76,6 +76,12 @@ class AclRepository {
                                     LEFT JOIN user_group ug ON u.id = ug.user_id
                                     WHERE u.id = ' . $user_id . '
                                 )');
+            /*select permissions.alias from permissions
+left join role_permission on role_permission.permission_id = permissions.alias
+left join roles on roles.id = role_permission.role_id
+left join group_role on group_role.role_id = roles.id
+left join groups on group_role.group_id = groups.id
+left join users on users.group_id = groups.id where users.id = 1*/
             $alias = [];
             foreach ($results as $permission) {
                 $alias[] = $permission->alias;

@@ -21,6 +21,7 @@
         <li class="@if ( $routename == 'permissions.index') active @endif"><a href="{{ route('permissions.index') }}"> @lang('common.Permissions') </a></li>
         <li class="@if ( $routename == 'groups.index') active @endif"><a href="{{ route('groups.index') }}"> @lang('common.Groups') </a></li>
         <li class="@if ( $routename == 'roles.index') active @endif"><a href="{{ route('roles.index') }}"> @lang('common.Roles') </a></li>
+        <li class="@if ( $routename == 'tokens.index') active @endif"><a href="{{ route('tokens.index') }}"> @lang('common.Tokens') </a></li>
     </ul>
   </li>
   <li class="dropdown">
@@ -44,9 +45,9 @@
     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> @lang('common.News')
     <span class="caret"></span></a>
     <ul class="dropdown-menu">
-        <li><a> @lang('common.Category') </a></li>
-        <li><a> @lang('common.Post') </a></li>
+        <li><a href="{{ route('news-categories.index') }}"> @lang('common.Category') </a></li>
+        <li><a href="{{ route('posts.index') }}"> @lang('common.Post') </a></li>
     </ul>
   </li>
-  <li class="@if( $routename == 'backup') active @endif"><a href="{{ route('backup') }}"> @lang('common.Backup') </a></li>
+  <li class="@if( $routename == 'backups.index') active @endif"><a href="{{ route('backups.index') }}"> @lang('common.Backup') </a></li>
 </ul>

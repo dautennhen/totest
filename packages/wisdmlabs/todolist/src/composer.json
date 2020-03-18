@@ -1,0 +1,26 @@
+{
+    "name": "wisdmlabs/todolist",
+    "description": "You can create the to-do-list of your task.",
+    "authors": [
+        {
+            "name": "Giovanni Pires da Silva",
+            "email": "giovanni@somosgad.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravelcollective/html": "^6.0@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WisdmLabs\\TodoList\\TodolistServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "WisdmLabs\\TodoList\\": "src/"
+        }
+    }
+}

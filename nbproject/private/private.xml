@@ -4,12 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/admin/Code/totest/app/Repositories/AclRepository.php</file>
-            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Purchase/ProductController.php</file>
             <file>file:/C:/Users/admin/Code/totest/app/Repositories/ProductRepository.php</file>
-            <file>file:/C:/Users/admin/Code/totest/resources/lang/en/common.php</file>
+            <file>file:/C:/Users/admin/Code/totest/public/js/common.js</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Repositories/ApiToken.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/token.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/header.blade.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Acl/UserController.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Models/Acl/Tokens.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Http/Controllers/Admin/Acl/TokenController.php</file>
+            <file>file:/C:/Users/admin/Code/totest/resources/views/acl/tokens/list.blade.php</file>
             <file>file:/C:/Users/admin/Code/totest/app/Repositories/GroupRepository.php</file>
-            <file>file:/C:/Users/admin/Code/totest/resources/views/purchase/products/new.blade.php</file>
-            <file>file:/C:/Users/admin/Code/totest/routes/web.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Models/User.php</file>
+            <file>file:/C:/Users/admin/Code/totest/app/Repositories/UserRepository.php</file>
         </group>
     </open-files>
 </project-private>

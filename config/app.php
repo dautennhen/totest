@@ -146,7 +146,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -154,6 +153,8 @@ return [
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -163,8 +164,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
-  //      Maatwebsite\Excel\ExcelServiceProvider::class,
-        
+        //Maatwebsite\Excel\ExcelServiceProvider::class,
+        //Wisdmlabs\Todolist\TodolistServicesProvider::class,
+        Jai\Contact\ContactServiceProvider::class,
     ],
 
     /*
@@ -217,6 +219,8 @@ return [
 //        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Facebook' => SammyK\LaravelFacebookSdk\FacebookFacade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
